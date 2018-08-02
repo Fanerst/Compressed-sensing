@@ -5,7 +5,7 @@ from scipy import integrate
 
 M = 200
 N = 1000
-npre = 1
+npre = 5
 
 
 def g(m, x):
@@ -67,17 +67,27 @@ def vamp(A, x):
     seed = 5
     r = np.random.random_sample(N)
     gamma = 0.5
+    rho = 0.95
 
     for k in range(100):
-        xk = g(r, gamma)
-        alpha = pg(r, gamma)
+        if k == 0:
+            xk = fa(r, gamma)
+        else:
+            xk = rho * fa(r, gamma) + (1 - rho) * xk
+
+        alpha = fc(r, gamma)
         print("a:", alpha)
         rtilde = (xk - alpha * r) / (1.0 - alpha)
         gammak = gamma * (1.0 - alpha) / alpha
         print("gk:",gammak)
-        dk = npre * np.dot(np.linalg.inv(np.diag(npre * s * s + gammak * np.ones(R))), s * s)
-        gamma = gammak * R * np.average(dk) / (N - R * np.average(dk))
+        dk = npre * np.dot(np.linalg.inv(np.diag(npre * np.square(s) + gammak * np.ones(R))), np.square(s))
+
+        if k == 0:
+            gamma = gammak * R * np.average(dk) / (N - R * np.average(dk))
+        else:
+            gamma = rho * gammak * R * np.average(dk) / (N - R * np.average(dk)) + (1 - rho) * gamma
         print("g:", gamma)
+
         r = rtilde + N * np.dot(np.dot(vT.transpose(), np.diag(dk / np.average(dk))), (y1 - np.dot(vT, rtilde))) / R
         t = xk - x
         result = np.average([i*i for i in t])

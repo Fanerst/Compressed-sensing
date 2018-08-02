@@ -49,8 +49,8 @@ for i in range(M):
     A1[i, :] = A1[i, :] / np.sqrt(sum([k*k for k in A1[i, :]]))
 
 # x1, result1, k1 = message_passing.amp(A, x)
-# x2, result2, k2 = message_passing.vamp(A1, x)
+x2, result2, k2 = message_passing.vamp(A1, x)
 
-# print(result1, k1)
+print(result2, k2)
 
 # nn.nn(A, x, M, N)
