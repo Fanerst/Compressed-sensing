@@ -35,9 +35,9 @@ def pg(m, x):
 def fa(r, v):
     y = np.zeros(len(r))
     for i in range(len(r)):
-        dis = lambda x: np.exp(- npre * abs(x) - v * (x-r[i])**2/2)
+        dis = lambda x: np.exp(- npre * x**2 - v * (x-r[i])**2/2)
         rho = integrate.quad(dis, -np.inf, np.inf)[0]
-        f = lambda x: x * (np.exp(- npre * abs(x) - v * (x-r[i])**2/2))/ rho
+        f = lambda x: x * (np.exp(- npre * x**2 - v * (x-r[i])**2/2))/ rho
         y[i] = integrate.quad(f, -np.inf, np.inf)[0]
 
     return y
@@ -46,10 +46,10 @@ def fa(r, v):
 def fc(r, v):
     y = np.zeros(len(r))
     for i in range(len(r)):
-        dis = lambda x: np.exp(- npre * abs(x) - v * (x - r[i]) ** 2 / 2)
+        dis = lambda x: np.exp(- npre * x**2 - v * (x - r[i]) ** 2 / 2)
         rho = integrate.quad(dis, -np.inf, np.inf)[0]
-        f1 = lambda x: x**2 * (np.exp(- npre * abs(x) - v * (x - r[i]) ** 2 / 2))/rho
-        f = lambda x: x * (np.exp(- npre * abs(x) - v * (x - r[i]) ** 2 / 2))/rho
+        f1 = lambda x: x**2 * (np.exp(- npre * x**2 - v * (x - r[i]) ** 2 / 2))/rho
+        f = lambda x: x * (np.exp(- npre * x**2 - v * (x - r[i]) ** 2 / 2))/rho
         y[i] = v * (integrate.quad(f1, -np.inf, np.inf)[0] - integrate.quad(f, -np.inf, np.inf)[0]**2)
 
     return np.average(y)
