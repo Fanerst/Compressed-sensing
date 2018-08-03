@@ -48,9 +48,11 @@ A1 = np.random.random_sample((M, N))
 for i in range(M):
     A1[i, :] = A1[i, :] / np.sqrt(sum([k*k for k in A1[i, :]]))
 
-# x1, result1, k1 = message_passing.amp(A, x)
-x2, result2, k2 = message_passing.vamp(A1, x)
+u, s, vT = np.linalg.svd(A, full_matrices=False)
+sd = np.diag(s)
+x1, result1, k1 = message_passing.amp(A, x)
+# x2, result2, k2 = message_passing.vamp(A1, x)
 
-print(result2, k2)
+print(result1, k1)
 
 # nn.nn(A, x, M, N)

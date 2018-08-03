@@ -99,21 +99,20 @@ def vamp(A, x):
 
 
 def amp(A, x):
-#    u, s, vT = np.linalg.svd(A, full_matrices=False)
+    u, s, vT = np.linalg.svd(A, full_matrices=False)
     y = np.dot(A, x)
-#    y = np.dot(np.dot(np.linalg.inv(np.diag(s)), u.transpose()), y)
-#    A = vT
+    y = np.dot(np.dot(np.linalg.inv(np.diag(s)), u.transpose()), y)
+    A = vT
     R = np.dot(A.transpose(), y)
     V = 0.01
     a = np.zeros(N)
     z = np.zeros(M)
 
     for k in range(100):
-        z = y - np.dot(A, a) + fc(R, V) * N * z / M
-        V = fc(R, V) * N * V / M
-        print(V)
+        z = y - np.dot(A, a) + pg(R, V) * N * z / M
+        V = pg(R, V) * N * V / M
         R = a + np.dot(A.transpose(), z)
-        a = fa(R, V)
+        a = g(R, V)
         t = a-x
         result = np.average([i*i for i in t])
         print(result)
