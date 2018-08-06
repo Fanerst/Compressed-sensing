@@ -107,6 +107,7 @@ def amp(A, x):
     V = 0.01
     a = np.zeros(N)
     z = np.zeros(M)
+    result = []
 
     for k in range(100):
         z = y - np.dot(A, a) + pg(R, V) * N * z / M
@@ -114,9 +115,8 @@ def amp(A, x):
         R = a + np.dot(A.transpose(), z)
         a = g(R, V)
         t = a-x
-        result = np.average([i*i for i in t])
-        print(result)
-        if result <= 10**(-10):
+        result.append(np.average([i*i for i in t]))
+        if result[k] <= 10**(-10):
             break
 
     return a, result, k
