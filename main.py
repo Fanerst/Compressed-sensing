@@ -74,9 +74,11 @@ for i in range(M):
 
 u, s, vT = np.linalg.svd(A, full_matrices=False)
 sd = np.diag(s)
-x1, result1, k1 = message_passing.amp(A1, x)
+
+print(np.cov(A1[1], A1[10]))
+# x1, result1, k1 = message_passing.amp(A1, x)
 # x2, result2, k2 = message_passing.vamp(A1, x)
-print(result1)
-draw_graph(result1, k1)
+# print(result1)
+# draw_graph(result1, k1)
 
 # nn.nn(A, x, M, N)
