@@ -75,7 +75,7 @@ for i in range(M):
 u, s, vT = np.linalg.svd(A, full_matrices=False)
 sd = np.diag(s)
 
-print(np.cov(A1[1], A1[10]))
+print(np.average(A[1]))
 # x1, result1, k1 = message_passing.amp(A1, x)
 # x2, result2, k2 = message_passing.vamp(A1, x)
 # print(result1)
